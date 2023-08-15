@@ -22,7 +22,7 @@ export default function Home() {
         <div className={styles.grid}>
           <ArtistList />
         </div>
-        
+
       </main>
 
       <footer>
@@ -73,7 +73,7 @@ export default function Home() {
         }
       `}</style>
 
-      
+
     </div>
   )
 }

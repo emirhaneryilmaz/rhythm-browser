@@ -6,13 +6,17 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
+interface DarkMode {
+	isDarkMode: boolean;
+  }
+
 const UstDiv = styled.div`
   padding: 20px;
   border-radius: 1vh;
-  
+
 `;
 
-const IcDiv = styled.div`
+const IcDiv = styled.div<DarkMode>`
   box-shadow: ${props => (props.isDarkMode ? 'rgba(128, 0, 128, 0.5) 15px 15px 8px' : 'rgba(0, 0, 0, 0.24) 0px 3px 8px')};
   display: flex;
   align-items: center;
@@ -42,10 +46,10 @@ const ArtistBaslik = styled.div`
   font-weight: bold;
 `;
 
-const CizgiSerit = styled.div`
+const CizgiSerit = styled.div<DarkMode>`
   border-top: ${props => (props.isDarkMode ? '1px solid #fff' : '1px solid #000')};
   margin: 10px 0;
-  color: 
+  color:
 `;
 
 const ArtistIsim = styled.div`
@@ -73,7 +77,7 @@ const StyledLink = styled(Link)`
 `;
 
 const ArtistList: React.FC = () => {
-  const { isDarkMode } = useTheme();  
+  const { isDarkMode } = useTheme();
   const [topArtists, setTopArtists] = useState([]);
   const [page, setPage] = useState(1);
   const perPage = 10; // 10 sanatçı her sayfada

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from './ThemeContext'; 
+import { useTheme } from './ThemeContext';
 import styles from '../styles/MyApp.module.css';
 
 const DarkModeToggle = () => {

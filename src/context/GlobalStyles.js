@@ -1,9 +1,9 @@
 import React from 'react';
-import { useTheme } from './ThemeContext'; 
+import { useTheme } from './ThemeContext';
 
 const GlobalStyles = () => {
     const { isDarkMode } = useTheme();
-  
+
     return (
       <style jsx global>{`
         html,
@@ -16,13 +16,13 @@ const GlobalStyles = () => {
           background: ${isDarkMode ? '#121212' : 'beige'}; /* Dark mode'a göre arka plan rengi */
           color: ${isDarkMode ? 'purple' : 'black'}; /* Dark mode'a göre yazı rengi */
         }
-      
-        
+
+
         * {
           box-sizing: border-box;
         }
       `}</style>
     );
   };
-  
+
   export default GlobalStyles;

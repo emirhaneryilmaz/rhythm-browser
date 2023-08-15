@@ -7,23 +7,31 @@ import Link from 'next/link';
 interface CardProps {
   title: string;
   data: {
+	artist: any;
+	url: URL;
     name: string;
     playcount: number;
     image: Array<{ '#text': string }>;
   }[];
 }
 
+interface DarkMode {
+	isDarkMode: boolean;
+  }
 
-
-const CardContainer = styled.div`
+const CardContainer = styled.div<DarkMode>`
   padding: 10px;
   margin: 0 10px;
   background: ${props => (props.isDarkMode ? '#121212' : 'beige')};
   color: ${props => (props.isDarkMode ? 'purple' : 'black')};
   width: calc(50% - 1vh);
+
+  @media (max-width: 960px) {
+    width: 100%;
+  }
 `;
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.div<DarkMode>`
   padding:2vh;
   display: flex;
   align-items: center;
@@ -82,7 +90,7 @@ cursor: pointer;
 
 const Card: React.FC<CardProps> = ({ title, data }) => {
   const { isDarkMode } = useTheme();
-
+  console.log(data)
   return (
     <CardContainer isDarkMode={isDarkMode}>
       <Title>{title}</Title>
@@ -95,7 +103,7 @@ const Card: React.FC<CardProps> = ({ title, data }) => {
             <NamePlayContainer>
               <div>
                 <div>{item.name}</div>
-                <div>{item.artist.name}</div>
+                <div>{item.artist}</div>
               </div>
             </NamePlayContainer>
             <PlayContainer>

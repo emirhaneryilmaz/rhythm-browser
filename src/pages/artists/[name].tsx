@@ -11,18 +11,27 @@ import { useTheme } from '../../context/ThemeContext';
 interface ArtistPageProps {
   artistName: string;
   topAlbums: Array<{
+	artist: any;
+	url: string | URL;
     name: string;
     playcount: number;
     image: Array<{ '#text': string }>;
   }>;
   topTracks: Array<{
+	artist: any;
+	url: string | URL;
     name: string;
     playcount: number;
     image: Array<{ '#text': string }>;
   }>;
   totalAlbumPages: number;
   totalTrackPages: number;
+
 }
+
+interface DarkMode {
+	isDarkMode: boolean;
+  }
 
 const ArtistPageContainer = styled.div`
   display: flex;
@@ -50,7 +59,7 @@ const Tab = styled.button<{ active: boolean }>`
   cursor: pointer;
   transition: background-color 0.3s;
   font-weight: bold;
-  
+
 `;
 
 const UstDiv = styled.div`
@@ -59,7 +68,7 @@ border-radius: 1vh;
 
 `;
 
-const IcDiv = styled.div`
+const IcDiv = styled.div<DarkMode>`
 box-shadow: ${props => (props.isDarkMode ? 'rgba(128, 0, 128, 0.5) 15px 15px 8px' : 'rgba(0, 0, 0, 0.24) 0px 3px 8px')};
 display: flex;
 align-items: center;
@@ -165,7 +174,7 @@ const ArtistPage: React.FC<ArtistPageProps> = ({
         <title>{artistName}</title>
       </Head>
 
-      <ArtistPageContainer isDarkMode={isDarkMode}>
+      <ArtistPageContainer>
         <UstDiv>
           <IcDiv isDarkMode={isDarkMode}>
             <OrtaDiv>
@@ -197,15 +206,17 @@ const ArtistPage: React.FC<ArtistPageProps> = ({
         >
           {!isSmallScreen && (
             <div style={{ display: 'flex' }}>
-              <Card title="Top Albums" data={topAlbums} />
-              <Card title="Top Tracks" data={topTracks} />
+              <Card title="Top Albums" data={topAlbums.map(album => ({ ...album, artist: artistName, url: new URL(album.url) }))} />
+			  <Card title="Top Tracks" data={topTracks.map(track => ({ ...track, artist: artistName, url: new URL(track.url) }))} />
+
             </div>
           )}
           {isSmallScreen && (
             <Card
-              title={activeTab === 'albums' ? 'Albums' : 'Tracks'}
-              data={activeTab === 'albums' ? topAlbums : topTracks}
-            />
+			title={activeTab === 'albums' ? 'Albums' : 'Tracks'}
+			data={activeTab === 'albums' ? topAlbums.map(album => ({ ...album, artist: artistName, url: new URL(album.url) })) : topTracks.map(track => ({ ...track, artist: track.artist.name, url: new URL(track.url) }))}
+		  />
+
           )}
         </InfiniteScroll>
       </ArtistPageContainer>
