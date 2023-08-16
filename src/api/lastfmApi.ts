@@ -13,8 +13,6 @@ const lastfmApi = axios.create({
 });
 
 export const fetchTopArtists = async (page: number, limit: number) => {
-  // const url = `/${baseURL}?method=chart.getTopArtists&page=${page}&limit=${limit}&api_key=${process.env.NEXT_PUBLIC_API_KEY}&format=json`;
-  // console.log('Request URL:', url);
 
   const response = await lastfmApi.get('', {
     params: {

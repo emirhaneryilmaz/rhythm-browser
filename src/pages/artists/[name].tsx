@@ -11,15 +11,15 @@ import { useTheme } from '../../context/ThemeContext';
 interface ArtistPageProps {
   artistName: string;
   topAlbums: Array<{
-	artist: any;
-	url: string | URL;
+    artist: any;
+    url: string | URL;
     name: string;
     playcount: number;
     image: Array<{ '#text': string }>;
   }>;
   topTracks: Array<{
-	artist: any;
-	url: string | URL;
+    artist: any;
+    url: string | URL;
     name: string;
     playcount: number;
     image: Array<{ '#text': string }>;
@@ -30,8 +30,8 @@ interface ArtistPageProps {
 }
 
 interface DarkMode {
-	isDarkMode: boolean;
-  }
+  isDarkMode: boolean;
+}
 
 const ArtistPageContainer = styled.div`
   display: flex;
@@ -207,15 +207,15 @@ const ArtistPage: React.FC<ArtistPageProps> = ({
           {!isSmallScreen && (
             <div style={{ display: 'flex' }}>
               <Card title="Top Albums" data={topAlbums.map(album => ({ ...album, artist: artistName, url: new URL(album.url) }))} />
-			  <Card title="Top Tracks" data={topTracks.map(track => ({ ...track, artist: artistName, url: new URL(track.url) }))} />
+              <Card title="Top Tracks" data={topTracks.map(track => ({ ...track, artist: artistName, url: new URL(track.url) }))} />
 
             </div>
           )}
           {isSmallScreen && (
             <Card
-			title={activeTab === 'albums' ? 'Albums' : 'Tracks'}
-			data={activeTab === 'albums' ? topAlbums.map(album => ({ ...album, artist: artistName, url: new URL(album.url) })) : topTracks.map(track => ({ ...track, artist: track.artist.name, url: new URL(track.url) }))}
-		  />
+              title={activeTab === 'albums' ? 'Albums' : 'Tracks'}
+              data={activeTab === 'albums' ? topAlbums.map(album => ({ ...album, artist: artistName, url: new URL(album.url) })) : topTracks.map(track => ({ ...track, artist: track.artist.name, url: new URL(track.url) }))}
+            />
 
           )}
         </InfiniteScroll>

@@ -7,8 +7,8 @@ import styled from 'styled-components';
 import { useTheme } from '../context/ThemeContext';
 
 interface DarkMode {
-	isDarkMode: boolean;
-  }
+  isDarkMode: boolean;
+}
 
 const UstDiv = styled.div`
   padding: 20px;
@@ -76,50 +76,26 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
-const ArtistList: React.FC = () => {
+const ArtistList: React.FC<{ initialArtists: any[] }> = ({ initialArtists }) => {
   const { isDarkMode } = useTheme();
-  const [topArtists, setTopArtists] = useState([]);
-  const [page, setPage] = useState(1);
-  const perPage = 10; // 10 sanatçı her sayfada
-  const [totalPages, setTotalPages] = useState(1);
+  const [topArtists, setTopArtists] = useState(initialArtists);
+  const [page, setPage] = useState(2); // İlk sayfa zaten yüklendi
+  const perPage = 10;
 
   const fetchArtists = async () => {
-    if (page <= totalPages) {
-        const { artists, totalPages: fetchedTotalPages } = await fetchTopArtists(
-            page,
-            perPage
-        );
-
-        if (page === 1) {
-            setTopArtists(artists);
-        } else {
-
-            const uniqueArtists = artists.filter((newArtist) => {
-                return !topArtists.some(
-                    (existingArtist) => existingArtist.name === newArtist.name
-                );
-            });
-
-            setTopArtists((prevArtists) => [...prevArtists, ...uniqueArtists]);
-        }
-
-        setPage(page + 1);
-        setTotalPages(fetchedTotalPages);
-    }
-};
-
-  useEffect(() => {
-    fetchArtists();
-  }, []);
+    const { artists } = await fetchTopArtists(page, perPage);
+    setTopArtists((prevArtists) => [...prevArtists, ...artists]);
+    setPage(page + 1);
+  };
 
   return (
     <InfiniteScroll
-      dataLength={topArtists.length}
-      next={fetchArtists}
-      hasMore={page <= totalPages}
-      loader={<Loader color={'#123abc'} loading={true} />}
-      style={{ overflow: 'hidden' }}
-    >
+    dataLength={topArtists.length}
+    next={fetchArtists}
+    hasMore={true} // Daha fazla sanatçı olup olmadığını kontrol etmek için bir mantık ekleyebilirsiniz
+    loader={<Loader color={'#123abc'} loading={true} />}
+    style={{ overflow: 'hidden' }}
+  >
       <UstDiv>
         {topArtists.map((artist) => (
           <StyledLink
@@ -127,7 +103,7 @@ const ArtistList: React.FC = () => {
             passHref
             key={artist.name}
           >
-            <IcDiv  isDarkMode={isDarkMode}>
+            <IcDiv isDarkMode={isDarkMode}>
               <SolDiv>
                 <ArtistImage
                   src={artist.image[2]['#text']}

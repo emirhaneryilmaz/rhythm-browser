@@ -1,1 +1,2 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Live Link :
+https://case-study-emirhan-eryilmaz.vercel.app/

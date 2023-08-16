@@ -90,7 +90,6 @@ cursor: pointer;
 
 const Card: React.FC<CardProps> = ({ title, data }) => {
   const { isDarkMode } = useTheme();
-  console.log(data)
   return (
     <CardContainer isDarkMode={isDarkMode}>
       <Title>{title}</Title>
@@ -106,6 +105,7 @@ const Card: React.FC<CardProps> = ({ title, data }) => {
                 <div>{item.artist}</div>
               </div>
             </NamePlayContainer>
+			
             <PlayContainer>
               <div>
                 <Playcount>Playcount: {item.playcount}</Playcount>
