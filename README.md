@@ -1,4 +1,4 @@
-# Live Link: https://case-study-emirhan-eryilmaz.vercel.app/
+## Live Link: https://case-study-emirhan-eryilmaz.vercel.app/
 
 ## Features
 - Lists top artists with **Infinite Scrolling**.
